@@ -112,12 +112,15 @@ public class Main {
 	{
 		dataCrud dc=new dataCrud();
 		String dateinbaseString=dc.getDate();
+		
 		String startDateString = "";
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		String keyString=dc.getKey();
-		if(dateinbaseString==null)
+		
+		if(dateinbaseString==null || dateinbaseString.equals(""))
 		{
 			dc.setDate(date);
+			startDateString=date;
 		}
 		else {
 			startDateString=dateinbaseString;
@@ -127,13 +130,14 @@ public class Main {
 		LocalDate end   = LocalDate.parse(date);
 
 		long diffInDays = ChronoUnit.DAYS.between(start, end);
-		if(diffInDays>=30 && keyString==null)
+		
+		if(diffInDays>30 && (keyString==null || keyString.equals("")))
 		{
 			JOptionPane.showMessageDialog(null, "Please contact developer to insert the key for licence");
 			System.exit(0);
 		}
-		else if(diffInDays<30 && keyString==null){
-			idKey.setText("you have: "+diffInDays+" days left to insert the "+idKey.getText());
+		else if(diffInDays<=30 && keyString==null || keyString.equals("")){
+			idKey.setText("you have: "+(30-diffInDays)+" days left to insert the "+idKey.getText());
 		}
 		else if(keyString!=null){
 			keyField.setText(keyString);
