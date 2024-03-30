@@ -32,12 +32,13 @@ public class AutoDetect {
                  		try {
             				Runtime.
             				   getRuntime().
-            				   exec("powershell.exe Start-Process  lock.bat -verb RunAs");
+            				   exec("powershell.exe Start-Process Lock"+xString+".bat -verb RunAs");
             	        } catch (IOException e) {
             	            e.printStackTrace();
             	        }
+                 	Main.frmExosafe.setVisible(true);
                       //  System.out.println(xString); 
-                 		System.out.println("Drive connected and now readonly: " + root.getAbsolutePath());
+                 		//System.out.println("Drive connected and now readonly: " + root.getAbsolutePath());
                      }
             	 }
             	//Modify the main list of drives to new one with new drives

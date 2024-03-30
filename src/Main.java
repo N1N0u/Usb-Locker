@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 
 import java.awt.AWTException;
@@ -56,7 +57,7 @@ import javax.swing.JTextField;
 
 public class Main {
 
-	private JFrame frmExosafe;
+	static JFrame frmExosafe;
 	private JScrollPane jScrollPane1;
 	static Table table;
 	static DefaultTableModel model;
@@ -98,9 +99,11 @@ public class Main {
         {	
         	System.exit(0);
         }
-        
+       
         
 		initialize();
+		
+		
 		
 		
 		AutoDetect.detect();
@@ -143,7 +146,7 @@ public class Main {
 			keyField.setText(keyString);
 			keyField.setEditable(false);
 			activateButton.setEnabled(false);
-			activateButton.setText("Program is Avticated");
+			activateButton.setText("Program is Activated");
 		}
 		
 	}
@@ -162,6 +165,7 @@ public class Main {
 		frmExosafe.setBounds(100, 100, 450, 300);
 		frmExosafe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmExosafe.setResizable(false);
+		//frmExosafe.setVisible(true);
 		
 		if (!SystemTray.isSupported()) {
 		    System.out.println("System tray is not supported");
@@ -197,14 +201,14 @@ public class Main {
 
 		    	frmExosafe.setVisible(false);
 
-		        trayIcon.displayMessage("Minimized", "My Java Application is minimized to the system tray", TrayIcon.MessageType.INFO);
+		      //  trayIcon.displayMessage("Minimized", "My Java Application is minimized to the system tray", TrayIcon.MessageType.INFO);
 
 		    }
 
 		});
 		
 		
-		frmExosafe.setVisible(true);
+	//	frmExosafe.setVisible(true);
 		
 		
 		JPanel panel = new JPanel();
@@ -277,6 +281,7 @@ public class Main {
 		btnNewButton.setkEndColor(new Color(192, 192, 192));
 		btnNewButton.setText("Disable Protection");
 		btnNewButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				dataCrud dCrud=new dataCrud();
 				String cPassString="";
@@ -286,31 +291,75 @@ public class Main {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				String password = JOptionPane.showInputDialog(null, "Enter Password:");
-		        if (password.equals(cPassString)) {
-		        	DefaultTableModel model=(DefaultTableModel) table.getModel();
-					int row=table.getSelectedRow();
-					String driveString=(String) model.getValueAt(row, 0);
-					LockUnlock.UnlockUsb(driveString.substring(0, driveString.length() - 2));
-					try {
-			            Process process = Runtime.getRuntime().exec("cmd /c handle " +driveString+"");
-			            process.waitFor();
-			            process.destroy();
-			        } catch (IOException | InterruptedException e1) {
-			            e1.printStackTrace();
-			        }
-					try {
-	    				Runtime.
-	    				   getRuntime().
-	    				   exec("powershell.exe Start-Process  Unlock.bat -verb RunAs");
-	    	        } catch (IOException e1) {
-	    	            e1.printStackTrace();
-	    	        }
-					model.setValueAt("Protection is Off", row,1);
-		          //  JOptionPane.showMessageDialog(null, "Password Correct!");
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Incorrect Password. Try Again.");
-		        }
+				JPanel panel = new JPanel();
+				JLabel label = new JLabel("Enter a password:");
+				JPasswordField pass = new JPasswordField(10);
+				panel.add(label);
+				panel.add(pass);
+				pass.setFocusable(true);
+			    pass.requestFocusInWindow();
+			    pass.requestFocus();
+				String[] options = new String[]{"OK", "Cancel"};
+				int option = JOptionPane.showOptionDialog(null, panel, "Password",
+                        JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[1]);
+						if(option == 0) // pressing OK button
+						{
+							
+						   String password = pass.getText();
+						  
+						    if (password.equals(cPassString)) {
+					        	DefaultTableModel model=(DefaultTableModel) table.getModel();
+								int row=table.getSelectedRow();
+								String driveString=(String) model.getValueAt(row, 0);
+								LockUnlock.UnlockUsb(driveString.substring(0, driveString.length() - 2));
+								try {
+						            Process process = Runtime.getRuntime().exec("cmd /c handle " +driveString+"");
+						            process.waitFor();
+						            process.destroy();
+						        } catch (IOException | InterruptedException e1) {
+						            e1.printStackTrace();
+						        }
+								try {
+				    				Runtime.
+				    				   getRuntime().
+				    				   exec("powershell.exe Start-Process Unlock.bat -verb RunAs");
+				    	        } catch (IOException e1) {
+				    	            e1.printStackTrace();
+				    	        }
+								model.setValueAt("Protection is Off", row,1);
+					          //  JOptionPane.showMessageDialog(null, "Password Correct!");
+					        } else {
+					            JOptionPane.showMessageDialog(null, "Incorrect Password. Try Again.");
+					        }
+						 //  System.out.println("Your password is: " + new String(password));
+						}
+						
+//										String password = JOptionPane.showInputDialog(null, "Enter Password:");
+//		        if (password.equals(cPassString)) {
+//		        	DefaultTableModel model=(DefaultTableModel) table.getModel();
+//					int row=table.getSelectedRow();
+//					String driveString=(String) model.getValueAt(row, 0);
+//					LockUnlock.UnlockUsb(driveString.substring(0, driveString.length() - 2));
+//					try {
+//			            Process process = Runtime.getRuntime().exec("cmd /c handle " +driveString+"");
+//			            process.waitFor();
+//			            process.destroy();
+//			        } catch (IOException | InterruptedException e1) {
+//			            e1.printStackTrace();
+//			        }
+//					try {
+//	    				Runtime.
+//	    				   getRuntime().
+//	    				   exec("powershell.exe Start-Process  Unlock.bat -verb RunAs");
+//	    	        } catch (IOException e1) {
+//	    	            e1.printStackTrace();
+//	    	        }
+//					model.setValueAt("Protection is Off", row,1);
+//		          //  JOptionPane.showMessageDialog(null, "Password Correct!");
+//		        } else {
+//		            JOptionPane.showMessageDialog(null, "Incorrect Password. Try Again.");
+//		        }
 			
 
 			}

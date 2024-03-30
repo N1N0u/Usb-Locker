@@ -7,7 +7,7 @@ public class LockUnlock {
 		
 
 	        try {
-	            FileWriter writer = new FileWriter("lock.bat");
+	            FileWriter writer = new FileWriter("lock"+name+".bat");
 	            writer.write("(echo sel vol "+name+" & echo list vol & echo attr disk set readonly & echo detail disk) | diskpart\r\n"
 	            		+ "echo.\r\n"
 	            		+ "echo.\r\n"
@@ -16,7 +16,7 @@ public class LockUnlock {
 	            		+ ") else (\r\n"
 	            		+ "  echo Failure setting "+name+" to READONLY.\r\n)");
 	            writer.close();
-	            System.out.println("File has been written successfully.");
+	          //  System.out.println("File has been written successfully.");
 	        } catch (IOException e) {
 	            System.out.println("An error occurred.");
 	            e.printStackTrace();
@@ -26,7 +26,7 @@ public class LockUnlock {
 	
 	public static void UnlockUsb(String name) {
 		 try {
-	            FileWriter writer = new FileWriter("Unlock.bat");
+	            FileWriter writer = new FileWriter("Unlock"+name+".bat");
 	            writer.write("(echo sel vol "+name+" & echo list vol & echo attr disk clear readonly & echo detail disk) | diskpart\r\n"
 	            		+ "echo.\r\n"
 	            		+ "echo.\r\n"
