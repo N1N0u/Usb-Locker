@@ -41,18 +41,6 @@ public class LockUnlock {
 	            e.printStackTrace();
 	        }
 	}
-		public static void main(String[] args) throws IOException
-		{
-			 ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "runas /user:Administrator \"readonly.bat\"");
-			    processBuilder.start();
-			/*UnlockUsb("E");
-			try {
-				Runtime.
-				   getRuntime().
-				   exec("powershell.exe Start-Process  Unlock.bat -verb RunAs");
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }*/
-		}
+		
 
 }

@@ -9,7 +9,7 @@ public class AutoDetect {
 	
     public static void detect() {
     	//set table row to 0
-    	model.setRowCount(0);
+    	//model.setRowCount(0);
     	
     	//get All Drives [C, ....] 
         

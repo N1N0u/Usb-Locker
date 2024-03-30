@@ -104,7 +104,7 @@ public class Main {
 		initialize();
 		
 		
-		
+		RemovableDrive.CheckUsbDrives();
 		
 		AutoDetect.detect();
 		checkLicence();
@@ -165,7 +165,7 @@ public class Main {
 		frmExosafe.setBounds(100, 100, 450, 300);
 		frmExosafe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmExosafe.setResizable(false);
-		//frmExosafe.setVisible(true);
+		frmExosafe.setVisible(true);
 		
 		if (!SystemTray.isSupported()) {
 		    System.out.println("System tray is not supported");
@@ -208,7 +208,6 @@ public class Main {
 		});
 		
 		
-	//	frmExosafe.setVisible(true);
 		
 		
 		JPanel panel = new JPanel();
@@ -233,7 +232,6 @@ public class Main {
 		panel_1.add(lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
-	//	frmExosafe.getContentPane().add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		table = new Table();
@@ -323,7 +321,7 @@ public class Main {
 								try {
 				    				Runtime.
 				    				   getRuntime().
-				    				   exec("powershell.exe Start-Process Unlock.bat -verb RunAs");
+				    				   exec("powershell.exe Start-Process Unlock"+driveString.substring(0, driveString.length() - 2)+".bat -verb RunAs");
 				    	        } catch (IOException e1) {
 				    	            e1.printStackTrace();
 				    	        }
@@ -334,33 +332,6 @@ public class Main {
 					        }
 						 //  System.out.println("Your password is: " + new String(password));
 						}
-						
-//										String password = JOptionPane.showInputDialog(null, "Enter Password:");
-//		        if (password.equals(cPassString)) {
-//		        	DefaultTableModel model=(DefaultTableModel) table.getModel();
-//					int row=table.getSelectedRow();
-//					String driveString=(String) model.getValueAt(row, 0);
-//					LockUnlock.UnlockUsb(driveString.substring(0, driveString.length() - 2));
-//					try {
-//			            Process process = Runtime.getRuntime().exec("cmd /c handle " +driveString+"");
-//			            process.waitFor();
-//			            process.destroy();
-//			        } catch (IOException | InterruptedException e1) {
-//			            e1.printStackTrace();
-//			        }
-//					try {
-//	    				Runtime.
-//	    				   getRuntime().
-//	    				   exec("powershell.exe Start-Process  Unlock.bat -verb RunAs");
-//	    	        } catch (IOException e1) {
-//	    	            e1.printStackTrace();
-//	    	        }
-//					model.setValueAt("Protection is Off", row,1);
-//		          //  JOptionPane.showMessageDialog(null, "Password Correct!");
-//		        } else {
-//		            JOptionPane.showMessageDialog(null, "Incorrect Password. Try Again.");
-//		        }
-			
 
 			}
 		});
