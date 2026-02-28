@@ -54,6 +54,7 @@ Usb-Locker is a Java application that allows you to switch a USB drive into **re
 - Read-only mode prevents accidental writes but does **not** prevent malware  
 - Tested on Windows 10 only  
 
-## Developed By
-**N1N0u** – Software Developer & Project Owner
+👨‍💻 Lead Developer
+
+ALIAT Atef – Responsible for software development and computer vision solutions
 
